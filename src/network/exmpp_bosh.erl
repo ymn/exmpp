@@ -46,7 +46,7 @@
 
 -record(state, {
         parsed_bosh_url, 
-           % {Host::string(), Port:integer(), Path::string(), Ssl::bool()}
+           % {Host::string(), Port:integer(), Path::string(), Ssl::boolean()}
         domain="",                                                   
         sid = <<>>,                                                  
         rid = 0,                                                     
@@ -90,7 +90,7 @@ wping(_Pid) ->
 %% don't do anything on init. We establish the connection when the stream start 
 %% is sent                                                                      
 init([ClientPid, StreamRef, URL, Domain, Options]) ->                           
-    {A,B,C} = now(),                                                            
+    {A,B,C} = erlang:timestamp(),                                                            
     random:seed(A,B,C),                                                         
     Rid = 1000 + random:uniform(100000),                                        
     ParsedUrl = parse_url(URL),                                                 
@@ -416,9 +416,9 @@ read_length(Hdrs, Socket, Length) ->
 %%   Host = string()                     
 %%   Port = integer()                    
 %%   Path = string()                     
-%%   Ssl = bool()                        
+%%   Ssl = boolean()                        
 %% @doc                                  
--spec parse_url(string()) -> {string(), integer(), string(), bool()}.
+-spec parse_url(string()) -> {string(), integer(), string(), boolean()}.
 parse_url(URL) ->                                                       
     % XXX This should be possible to do with the re module?             
     {Scheme, HostPortPath} = split_scheme(URL),                         

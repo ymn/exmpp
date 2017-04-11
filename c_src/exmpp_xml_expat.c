@@ -331,8 +331,7 @@ expat_cb_start_namespace(void *user_data,
       keep in mind that this function is only used to build the list of the namespaces that
       are declared at this element tag (declared_ns field in the #xmlel record), 
       it has nothing to do with the general namespace algorithm that is handled by expat */ 
-    if (uri == NULL) 
-        return;
+    if (uri == NULL) return;
 
 	struct exmpp_xml_data *edd;
 
