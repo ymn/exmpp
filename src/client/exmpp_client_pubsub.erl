@@ -818,5 +818,5 @@ retract(Id, Service, Node, ItemID) ->
 %% seed the generator.
 
 pubsub_id() ->
-    "pubsub-" ++ integer_to_list(random:uniform(65536 * 65536)).
+    "pubsub-" ++ integer_to_list(rand:uniform(65536 * 65536)).
 

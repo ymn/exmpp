@@ -85,4 +85,4 @@ set_item(Id, ContactJID, Groups, Nick) ->
 %% seed the generator.
 
 roster_id() ->
-    "rost-" ++ integer_to_list(random:uniform(65536 * 65536)).
+    "rost-" ++ integer_to_list(rand:uniform(65536 * 65536)).

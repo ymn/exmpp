@@ -154,7 +154,7 @@ get_s2s(Domain) ->
 
 get_servers(Service, Proto, Domain, DefaultPort) ->		  
     {S1, S2, S3} = erlang:timestamp(),
-    random:seed(S1, S2, S3),
+    rand:seed(S1, S2, S3),
     Name = "_" ++ Service ++ "._" ++ Proto ++ "." ++ Domain,
     AddrList = case do_query(Name, Domain, DefaultPort) of
 		   {error, _} ->
@@ -209,7 +209,7 @@ pick_server(AddrList) ->
 					       {{P, W, Port, Host, Sum + W}, 
 						Sum + W}
 				       end, 0, List),
-		   R = random:uniform(Sum + 1) - 1,
+		   R = rand:uniform(Sum + 1) - 1,
 		   [Take | _]  = lists:dropwhile(fun ({_, _, _, _, S}) ->
 							 S < R
 						 end, Weighted),

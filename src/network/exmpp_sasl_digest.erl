@@ -43,7 +43,7 @@
 mech_new(Host, GetPassword, _CheckPassword, CheckPasswordDigest) ->
     crypto:start(),
     {ok, #state{step = 1,
-                nonce = hex(integer_to_list(random:uniform(65536*65536))),
+                nonce = hex(integer_to_list(rand:uniform(65536*65536))),
 		host = Host,
 		get_password = GetPassword,
 		check_password = CheckPasswordDigest}}.
@@ -51,7 +51,7 @@ mech_new(Host, GetPassword, _CheckPassword, CheckPasswordDigest) ->
 mech_client_new(Username, Host, Domain, Password) ->
     crypto:start(),
     {ok, #state{step = 2,
-                cnonce = hex(integer_to_list(random:uniform(18446744073709551616))),
+                cnonce = hex(integer_to_list(rand:uniform(18446744073709551616))),
                 username = Username,
 		host = Host,
 		domain = Domain,

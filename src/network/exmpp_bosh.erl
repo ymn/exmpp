@@ -88,26 +88,26 @@ wping(_Pid) ->
 	ok.
 
 %% don't do anything on init. We establish the connection when the stream start 
-%% is sent                                                                      
-init([ClientPid, StreamRef, URL, Domain, Options]) ->                           
-    {A,B,C} = erlang:timestamp(),                                                            
-    random:seed(A,B,C),                                                         
-    Rid = 1000 + random:uniform(100000),                                        
-    ParsedUrl = parse_url(URL),                                                 
-    IP = proplists:get_value(local_ip, Options, undefined),                     
-    Port= proplists:get_value(local_port, Options, undefined),                  
-    State = #state{parsed_bosh_url = ParsedUrl,                                 
-            domain = Domain,                                                    
-            rid = Rid,                                                          
-            open = 0,                                                           
-            client_pid = ClientPid,                                             
-            queue = [],                                                
-            free = [],                                                          
-            local_ip = IP,                                                      
-            local_port = Port,                                                  
+%% is sent
+init([ClientPid, StreamRef, URL, Domain, Options]) ->
+    {A,B,C} = erlang:timestamp(),
+    rand:seed(A,B,C),
+    Rid = 1000 + rand:uniform(100000),
+    ParsedUrl = parse_url(URL),
+    IP = proplists:get_value(local_ip, Options, undefined),
+    Port= proplists:get_value(local_port, Options, undefined),
+    State = #state{parsed_bosh_url = ParsedUrl,
+            domain = Domain,
+            rid = Rid,
+            open = 0,
+            client_pid = ClientPid,
+            queue = [],
+            free = [],
+            local_ip = IP,
+            local_port = Port,
             stream_ref = exmpp_xmlstream:set_wrapper_tagnames(StreamRef, [body])
-            },                                                                  
-     {ok, State}.                                                               
+            },
+     {ok, State}.
 
 handle_call({get_property, rid}, _From, State) ->
     {reply, State#state.rid, State};

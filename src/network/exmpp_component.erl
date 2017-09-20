@@ -154,7 +154,7 @@ init([Pid]) ->
     inets:start(),
     exmpp_stringprep:start(),
     {A1,A2,A3} = erlang:timestamp(),
-    random:seed(A1, A2, A3),
+    rand:seed(A1, A2, A3),
     {ok, setup, #state{client_pid=Pid}}.
 
 handle_event(tcp_closed, _StateName, State) ->

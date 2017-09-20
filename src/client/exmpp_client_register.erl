@@ -133,4 +133,4 @@ append_fields(Query, [{Field, Value}|Fields])
 %% seed the generator.
 
 register_id() ->
-    "reg-" ++ integer_to_list(random:uniform(65536 * 65536)).
+    "reg-" ++ integer_to_list(rand:uniform(65536 * 65536)).

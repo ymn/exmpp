@@ -178,7 +178,7 @@ random_id() ->
 -spec(random_id (string() | undefined) -> string()).
 
 random_id(undefined) ->
-    integer_to_list(random:uniform(65536 * 65536));
+    integer_to_list(rand:uniform(65536 * 65536));
 random_id("") ->
     random_id(undefined);
 random_id(Prefix) when is_atom(Prefix) ->

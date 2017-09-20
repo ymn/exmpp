@@ -83,4 +83,4 @@ items(To, Node) ->
 %% seed the generator.
 
 iq_id() ->
-    "iq-" ++ integer_to_list(random:uniform(65536 * 65536)).
+    "iq-" ++ integer_to_list(rand:uniform(65536 * 65536)).
