@@ -864,7 +864,7 @@ verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx)
 			if (ASN1_STRING_type(gen->d.ia5) != V_ASN1_IA5STRING)
 				continue;
 
-			dnsname = (char *)ASN1_STRING_data(gen->d.ia5);
+			dnsname = (char *)ASN1_STRING_get0_data(gen->d.ia5);
 
 			/* ASN1_IA5STRING may contain NUL character; check
 			 * it. */
@@ -935,10 +935,14 @@ DRIVER_INIT(DRIVER_NAME)
 	// Initialize ephemeral Diffie-Hellman parameters.
 	dh1024 = DH_new();
 	if (dh1024 != NULL) {
-		dh1024->p = BN_bin2bn(dh1024_p, sizeof(dh1024_p), NULL);
-		dh1024->g = BN_bin2bn(dh1024_g, sizeof(dh1024_g), NULL);
-		if (dh1024->p == NULL || dh1024->g == NULL) {
+		BIGNUM *p, *g;
+
+		p = BN_bin2bn(dh1024_p, sizeof(dh1024_p), NULL);
+		g = BN_bin2bn(dh1024_g, sizeof(dh1024_g), NULL);
+		if (p == NULL || g == NULL || !DH_set0_pqg(dh1024, p, NULL, g)) {
 			DH_free(dh1024);
+			BN_free(p);
+			BN_free(g);
 			dh1024 = NULL;
 		}
 	}
